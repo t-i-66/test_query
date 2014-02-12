@@ -165,5 +165,162 @@ EOT;
 			return $result;
 		}
 	}
+	
+	/**
+	* カテゴリの変更をブロックする
+	*
+	* @param	integer	$_wa_param		スポットID
+	*/
+	public function getDispReportTitleApi($_wa_param){
 
+		$_wi_city_id = pg_escape_string($_wa_param['city_id']);
+		$_wi_cate_id = pg_escape_string($_wa_param['cate_id']);
+
+		$_ws_sql = <<<EOT
+ (SELECT
+	rep.category_id,
+	rep.title,
+	prof.photo_id
+ FROM
+	guide_disp_reports rep,
+	guide_profiles prof,
+	wspots spot
+ WHERE
+     spot.city_code[1] = 'HNL'
+ AND rep.wspot_id = spot.id
+ AND rep.guide_profile_id = prof.id
+ AND rep.category_id = 1
+ AND rep.guide_report_del_flg = false
+ AND guide_report_status = 0
+ GROUP BY rep.category_id,
+		  rep.title,
+		  prof.photo_id
+ LIMIT 2)
+ UNION
+ (SELECT
+	rep.category_id,
+	rep.title,
+	prof.photo_id
+ FROM
+	guide_disp_reports rep,
+	guide_profiles prof,
+	wspots spot
+ WHERE
+     spot.city_code[1] = 'HNL'
+ AND rep.wspot_id = spot.id
+ AND rep.guide_profile_id = prof.id
+ AND rep.category_id = 2
+ AND rep.guide_report_del_flg = false
+ AND guide_report_status = 0
+ GROUP BY rep.category_id,
+		  rep.title,
+		  prof.photo_id
+ LIMIT 2)
+ UNION
+ (SELECT
+	rep.category_id,
+	rep.title,
+	prof.photo_id
+ FROM
+	guide_disp_reports rep,
+	guide_profiles prof,
+	wspots spot
+ WHERE
+     spot.city_code[1] = 'HNL'
+ AND rep.wspot_id = spot.id
+ AND rep.guide_profile_id = prof.id
+ AND rep.category_id = 4
+ AND rep.guide_report_del_flg = false
+ AND guide_report_status = 0
+ GROUP BY rep.category_id,
+		  rep.title,
+		  prof.photo_id
+ LIMIT 2 )
+ ORDER BY category_id
+EOT;
+		$result = $this->query($_ws_sql, false);
+		if ($result > 0){
+			return false;
+		}
+		return true;
+	}
+	
+/**
+	* カテゴリの変更をブロックする
+	*
+	* @param	integer	$_wa_param		スポットID
+	*/
+	public function getDispReportTitleApi($_wa_param){
+
+		$_wi_city_id = pg_escape_string($_wa_param['city_id']);
+		$_wi_cate_id = pg_escape_string($_wa_param['cate_id']);
+
+		$_ws_sql = <<<EOT
+ (SELECT
+	rep.category_id,
+	rep.title,
+	prof.photo_id
+ FROM
+	guide_disp_reports rep,
+	guide_profiles prof,
+	wspots spot
+ WHERE
+     spot.city_code[1] = 'HNL'
+ AND rep.wspot_id = spot.id
+ AND rep.guide_profile_id = prof.id
+ AND rep.category_id = 1
+ AND rep.guide_report_del_flg = false
+ AND guide_report_status = 0
+ GROUP BY rep.category_id,
+		  rep.title,
+		  prof.photo_id
+ LIMIT 2)
+ UNION
+ (SELECT
+	rep.category_id,
+	rep.title,
+	prof.photo_id
+ FROM
+	guide_disp_reports rep,
+	guide_profiles prof,
+	wspots spot
+ WHERE
+     spot.city_code[1] = 'HNL'
+ AND rep.wspot_id = spot.id
+ AND rep.guide_profile_id = prof.id
+ AND rep.category_id = 2
+ AND rep.guide_report_del_flg = false
+ AND guide_report_status = 0
+ GROUP BY rep.category_id,
+		  rep.title,
+		  prof.photo_id
+ LIMIT 2)
+ UNION
+ (SELECT
+	rep.category_id,
+	rep.title,
+	prof.photo_id
+ FROM
+	guide_disp_reports rep,
+	guide_profiles prof,
+	wspots spot
+ WHERE
+     spot.city_code[1] = 'HNL'
+ AND rep.wspot_id = spot.id
+ AND rep.guide_profile_id = prof.id
+ AND rep.category_id = 4
+ AND rep.guide_report_del_flg = false
+ AND guide_report_status = 0
+ GROUP BY rep.category_id,
+		  rep.title,
+		  prof.photo_id
+ LIMIT 2 )
+ ORDER BY category_id
+EOT;
+		$result = $this->query($_ws_sql, false);
+		if ($result > 0){
+			return false;
+		}
+		return true;
+	}
 }
