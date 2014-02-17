@@ -28,12 +28,12 @@ class GuideDispReport extends AppModel {
 				$_wi_mode = 1;
 			} else if($_ws_mode === "gourmet"){
 				$_wi_mode = 2;
-			} else if($_ws_mode === "shop"){
-				$_wi_mode = 3;
+//			} else if($_ws_mode === "shop"){
+//				$_wi_mode = 3;
 			} else if($_ws_mode === "sightseeing"){
 				$_wi_mode = 4;
-			} else if($_ws_mode === "optional"){
-				$_wi_mode = 5;
+//			} else if($_ws_mode === "optional"){
+//				$_wi_mode = 5;
 			} else {
 				return false;
 			}
@@ -82,6 +82,7 @@ class GuideDispReport extends AppModel {
  ORDER BY guide_report_updated DESC
  LIMIT 3
 EOT;
+echo $_ws_sql;exit;
 		$result['prof'] = $this->query($_ws_sql, false);
 
 		if (count($result['prof']) == 0){ return null; }
@@ -116,6 +117,7 @@ EOT;
 			$result[$i]['prof_report'] = $this->query($_ws_sql, false);
 			$i++;
 		}
+
 		// 記事情報を取得するのは一人分だけ
 		foreach ($result['prof'] as $_wa_guide){
 			// ガイド指定パラメタがあればチェック
