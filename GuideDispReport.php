@@ -2,7 +2,8 @@
 App::uses('AppModel', 'Model');
 /**
  * GuideDispReport Model
- *
+ * テスト用関数
+ * branchチェック
  */
 class GuideDispReport extends AppModel {
 
